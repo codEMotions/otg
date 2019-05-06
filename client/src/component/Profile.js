@@ -23,9 +23,9 @@ export class Profile extends Component {
               <img width="18px" alt="" src="holder-sq.png" />
             </Link>
 
-            <Link id="cv-athelte-link" to="/athletecv">
+            {/* <Link id="cv-athelte-link" to="/athletecv">
               cv
-            </Link>
+            </Link> */}
             <NameDisplay />
             <SportIcon />
           </div>

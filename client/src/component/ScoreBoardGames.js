@@ -6,7 +6,9 @@ import {
   addGameleague
 } from "../actions/gameleagueActions";
 
-import { addRecord } from "../actions/recordActions"
+import { addProfile, getProfile, deleteProfile } from "../actions/profileActions";
+
+import { addRecord } from "../actions/recordActions";
 import uuid from "uuid";
 import {
   Alert,
@@ -40,6 +42,16 @@ export class ScoreBoardGames extends Component {
       score2: 0,
       id: "",
 
+      //add to new profile
+        newId: "",
+        newFirstname: "",
+        newLastname: "",
+        newNickname: "",
+        newDisplayname: "",
+        newFavoritesport: "",
+        newSilverstar: 0,
+        newGoldenstar: 0,
+
       //add to records db
       finalScore1: 0,
       finalScore2: 0
@@ -51,6 +63,7 @@ export class ScoreBoardGames extends Component {
 
   componentDidMount() {
     this.props.getGameleague();
+    this.props.getProfile();
   }
 
   toggle = () => {
@@ -150,11 +163,10 @@ export class ScoreBoardGames extends Component {
   onDeleteClick = id => {
     this.props.deleteGameleague(id);
   };
+
   onEndGameClick = (id, gameType, team1, team2, score1, score2) => {
     //add star
-
-    
-
+    this.onAddStar();
     //add to game records db
     const newRecord = {
       gameType: gameType,
@@ -164,7 +176,6 @@ export class ScoreBoardGames extends Component {
       score2: score2
     };
 
-    console.log(newRecord);
     this.props.addRecord(newRecord);
 
     this.props.deleteGameleague(id);
@@ -182,12 +193,12 @@ export class ScoreBoardGames extends Component {
       gameType: this.state.gameType,
       score1: this.state.score1,
       score2: this.state.score2
-    }
-    
+    };
+
     await this.props.addGameleague(newGame);
     await console.log(this.state);
 
-    this.toggleS()
+    this.toggleS();
   };
 
   toggleS = async (id, team1, team2, leagueName, gameType, score1, score2) => {
@@ -201,6 +212,55 @@ export class ScoreBoardGames extends Component {
       score2: score2,
       id: id
     });
+  };
+
+  onAddStar = async  () => {
+
+    //grab the current and sent to state
+    const { profile } = this.props.profile;
+
+    await profile.map(
+      ({
+        _id,
+        firstname,
+        lastname,
+        nickname,
+        displayname,
+        favoritesport,
+        silverstar,
+        goldenstar
+      }) => (
+        
+        this.setState({
+          newId: _id,
+          newFirstname: firstname,
+          newLastname: lastname,
+          newNickname: nickname,
+          newDisplayname: displayname,
+          newFavoritesport: favoritesport,
+          newSilverstar: silverstar,
+          newGoldenstar: goldenstar
+        })
+      )
+    );
+
+    this.props.deleteProfile(this.state.newId);
+
+    let setSilverstar = this.state.newSilverstar + 1
+
+    
+
+    const newProfile = {
+      firstname: this.state.newFirstname,
+      lastname: this.state.newLastname,
+      nickname: this.state.newNickname,
+      displayname: this.state.newDisplayname,
+      favoritesport: this.state.newFavoritesport,
+      silverstar: setSilverstar,
+      goldenstar: this.state.newGoldenstar,
+    };
+
+    this.props.addProfile(newProfile)
 
     
   };
@@ -210,7 +270,6 @@ export class ScoreBoardGames extends Component {
 
     return (
       <div id="score-board" className="mn">
-
         <h4>Score Board - Live Games</h4>
 
         {gamesleague.map(({ team1, team2, gameType, _id, score1, score2 }) => (
@@ -222,7 +281,8 @@ export class ScoreBoardGames extends Component {
               <p>&times;</p>
             </button>
             <span className="score-board-info">
-              <span className="score-board-teams">{team1}</span> {score1} vs {score2} <span className="score-board-teams">{team2}</span>
+              <span className="score-board-teams">{team1}</span> {score1} vs{" "}
+              {score2} <span className="score-board-teams">{team2}</span>
             </span>
 
             <button
@@ -281,33 +341,6 @@ export class ScoreBoardGames extends Component {
             </select>
 
             <Form onSubmit={this.onSubmit}>
-              {/* <Row form>
-                <Col md={6}>
-                  <FormGroup>
-                    <Label for="team1">Team 1</Label>
-                    <Input
-                      type="text"
-                      name="team1"
-                      id="team1"
-                      placeholder="Team 1 Name"
-                      onChange={this.handleChange}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col md={6}>
-                  <FormGroup>
-                    <Label for="team2">Team 2</Label>
-                    <Input
-                      type="text"
-                      name="team2"
-                      id="team2"
-                      placeholder="Team 2 Name"
-                      onChange={this.handleChange}
-                    />
-                  </FormGroup>
-                </Col>
-              </Row> */}
-
               <FormGroup tag="fieldset" row onChange={this.handleChange}>
                 <legend className="col-form-label col-sm-6">
                   How Many Players a Side
@@ -376,5 +409,13 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getGameleague, deleteGameleague, addGameleague, addRecord }
+  {
+    getGameleague,
+    deleteGameleague,
+    addGameleague,
+    addRecord,
+    addProfile,
+    getProfile,
+    deleteProfile
+  }
 )(ScoreBoardGames);

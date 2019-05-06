@@ -2,9 +2,12 @@ export const GET_ITEMS = 'GET_ITEMS';
 export const ADD_ITEM = 'ADD_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const ITEMS_LOADING = 'ITEMS_LOADING';
-export const UPDATE_PROFILE = 'UPDATE_PROFILE';
+
+
+export const ADD_PROFILE = 'ADD_PROFILE';
 export const GET_PROFILE = 'GET_PROFILE';
 export const PROFILE_LOADING = 'PROFILE_LOADING';
+export const DELETE_PROFILE = 'DELETE_PROFILE';
 
 export const ADD_GAME = "ADD_GAME";
 export const GET_GAME = "GET_GAME";

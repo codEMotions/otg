@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UPDATE_PROFILE, GET_PROFILE, PROFILE_LOADING } from './types';
+import { ADD_PROFILE, GET_PROFILE, PROFILE_LOADING, DELETE_PROFILE } from './types';
 
 
 export const getProfile = () => dispatch => {
@@ -13,15 +13,26 @@ export const getProfile = () => dispatch => {
             }))
 };
 
-export const updateProfile = profile => dispatch => {
+export const addProfile = profile => dispatch => {
     axios
         .post('/api/profile', profile)
         .then(res => 
             dispatch ({
-                type: UPDATE_PROFILE,
+                type: ADD_PROFILE,
                 payload: res.data
             })
         );
+};
+
+export const deleteProfile = id => (dispatch) => {
+    axios
+        .delete(`/api/profile/${id}`)
+        .then(res =>
+            dispatch({
+                type: DELETE_PROFILE,
+                payload: id
+            })
+            )
 };
 
 export const setProfileLoading = () => {

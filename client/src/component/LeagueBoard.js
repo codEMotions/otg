@@ -508,7 +508,7 @@ export class LeagueBoard extends Component {
       score2: 0
     }
 
-    console.log(" from start btn ", newGame);
+    
     this.props.addGameleague(newGame);
   }
 
@@ -544,7 +544,7 @@ export class LeagueBoard extends Component {
             win,
             loss
           }) => (
-            <div>
+            <div key={_id}>
               <hr />
               {leagueName} - {gameType} <button
                 onClick={this.onDeleteClick.bind(this, _id)}

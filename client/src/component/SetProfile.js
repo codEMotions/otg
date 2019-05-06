@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { updateProfile, getProfile } from "../actions/profileActions";
-import { getItems } from "../actions/itemActions";
+import { addProfile, getProfile, deleteProfile } from "../actions/profileActions";
 // import uuid from "uuid";
 
 export class SetProfile extends Component {
@@ -14,8 +13,10 @@ export class SetProfile extends Component {
       nickname: "",
       displayname: "",
       favoritesport: "",
+      silverstar: 0,
+      goldenstar: 0,
 
-      displayChanges: "none"
+      displayChanges: "block"
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,7 +26,6 @@ export class SetProfile extends Component {
 
   componentDidMount() {
     this.props.getProfile();
-    this.props.getItems();
   }
 
   async handleChangeSel(event) {
@@ -38,39 +38,31 @@ export class SetProfile extends Component {
     });
   }
 
-  onSubmit = e => {
-    e.preventDefault();
+  
+
+  
+
+  onMakeChangesClick = (id) => {
 
     const newItem = {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       nickname: this.state.nickname,
       displayname: this.state.displayname,
-      favoritesport: this.state.favoritesport
+      favoritesport: this.state.favoritesport,
+      silverstar: this.state.silverstar,
+      goldenstar: this.state.goldenstar,
     };
 
     //add item via actions
-    this.props.updateProfile(newItem);
+    this.props.addProfile(newItem);
 
-    this.setState({
-      displayChanges: "block"
-    });
-  };
-
-  renderProfiles() {
-    if (this.props.profile.length) {
-      // return <Loading/>
-    }
+    this.props.deleteProfile(id)
+    console.log("workskks")
   }
 
   render() {
-    // const { profile } = this.props.profile;
-
-    // console.log(
-    //   this.props.profile.profile &&
-    //     this.props.profile.profile[0] &&
-    //     this.props.profile.profile[0].firstname
-    // );
+    const { profile } = this.props.profile;
 
     let nameToDisplay = "";
 
@@ -88,42 +80,48 @@ export class SetProfile extends Component {
 
     return (
       <div>
-        set SetProfile
+        <h2>Your Profile</h2>
         <form onSubmit={this.onSubmit}>
           <input
+            className="input-set-profile"
             type="text"
             name="firstname"
             ref="firstname"
             placeholder="First name"
             onChange={this.handleChange}
           />
+          <br/>
           <input
+            className="input-set-profile"
             type="text"
             name="lastname"
             id="lastname"
             placeholder="Last name"
             onChange={this.handleChange}
           />
+          <br/>
           <input
+            className="input-set-profile"
             type="text"
             name="nickname"
             id="nickname"
             placeholder="Nickname"
             onChange={this.handleChange}
           />
-          <div onChange={this.handleChange}>
-            <input type="radio" name="displayname" value="firstname" /> First
+          <div className="input-set-profile" onChange={this.handleChange}>
+            <input className="radio-set-profile" type="radio" name="displayname" value="firstname" /> First
             Name
-            <input type="radio" name="displayname" value="lastname" /> Last
+            <input className="radio-set-profile" type="radio" name="displayname" value="lastname" /> Last
             Name
-            <input type="radio" name="displayname" value="nickname" /> Nick
+            <input className="radio-set-profile" type="radio" name="displayname" value="nickname" /> Nick
             Name
           </div>
           <select
+            className="input-set-profile"
             value={this.state.favoritesport}
             onChange={this.handleChangeSel}
           >
-            <option option="choose">choose from list</option>
+            <option option="choose">Choose from list</option>
             <option option="Basketball">Basketball</option>
             <option option="Football">Football</option>
             <option option="Soccer">Soccer</option>
@@ -134,41 +132,39 @@ export class SetProfile extends Component {
             <option option="Golf">Golf</option>
             <option option="Other">Other</option>
           </select>
-          <button>Change</button>
+          
         </form>
-        <Link to="/">Home</Link>
+        
         <div id="displayChanges" style={{ display: this.state.displayChanges }}>
           <p>Changes: </p>
-          Name:{" "}
-          {this.props.profile.profile &&
-            this.props.profile.profile[0] &&
-            this.props.profile.profile[0].firstname}
-          <br />
-          Last Name:{" "}
-          {this.props.profile.profile &&
-            this.props.profile.profile[0] &&
-            this.props.profile.profile[0].lastname}
-          <br />
-          Nick Name:{" "}
-          {this.props.profile.profile &&
-            this.props.profile.profile[0] &&
-            this.props.profile.profile[0].nickname}
-          <br />
-          Display Name:{" "}
-          {nameToDisplay}
-          <br />
-          Favorite Sport:{" "}
-          {this.props.profile.profile &&
-            this.props.profile.profile[0] &&
-            this.props.profile.profile[0].favoritesport}
+
+
+          {profile.map(({ _id, firstname, lastname, nickname, displayname, favoritesport, silverstar, goldenstar }) => (
+           
+           <div key={_id}>
+              <button onClick={this.onMakeChangesClick.bind(this, _id, firstname, lastname, nickname, displayname, favoritesport, goldenstar, silverstar)}>Make Changes</button>
+
+              <br />
+              <br />
+
+              Name:{" "}{firstname}
+              <br />
+              Last Name:{" "}{lastname}
+              <br />
+              Nick Name:{" "}{nickname}
+              <br />
+              Display Name:{" "}{nameToDisplay}
+              <br />
+              Favorite Sport:{" "}{favoritesport}
+              <br />
+
+            </div>
+
+          ))}
+          
         </div>
-        {/* {profile.map(({ _id, firstname, favoritesport }) => (
-          <ul>
-            <li>
-              {firstname}, {favoritesport}
-            </li>
-          </ul>
-        ))} */}
+
+        <Link to="/">Back</Link>
       </div>
     );
   }
@@ -181,5 +177,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { updateProfile, getProfile, getItems }
+  { addProfile, getProfile, deleteProfile }
 )(SetProfile);

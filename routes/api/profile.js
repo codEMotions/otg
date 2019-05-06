@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
 //@route Get api/items
 router.delete('/:id', (req, res) => {
     Profile.findById(req.params.id)
-        .then(item => profile.remove().then(() => res.json( { success: true })))
+        .then(profile => profile.remove().then(() => res.json( { success: true })))
         .catch(err => res.status(404).json( { success: false } ))
 })
 

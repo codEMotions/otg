@@ -28,7 +28,7 @@ const ProfileSchema = new Schema({
         required: false
     },
     goldenstar: {
-        type: String,
+        type: Number,
         required: false
     },
     date: {
