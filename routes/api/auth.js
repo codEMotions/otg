@@ -5,6 +5,7 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 const auth = require('../../middleware/auth');
 
+
 //item Model
 const User = require("../../models/User");
 
@@ -35,7 +36,7 @@ router.post("/", (req, res) => {
             {
               id: user.id
             },
-            config.get("jwtSecret"),
+            config.get('jwtSecret'),
             {
               expiresIn: 360000 * 24
             },

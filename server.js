@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const config = require('config');
 
+
 const items = require('./routes/api/items');
 const profile = require('./routes/api/profile');
 const games = require('./routes/api/games');
@@ -16,11 +17,12 @@ const app = express();
 
 app.use(express.json());
 
+//const key = process.env.API_KEY
 const db = config.get('mongoURI');
-//'mongodb://localhost:27017/otg';
+
 
 //connect
-mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true })
+mongoose.connect(process.env.MONGODB_URI || db, { useNewUrlParser: true, useCreateIndex: true })
     .then(() => console.log('mongoDB connected...'))
     .catch(err => console.log(err));
 

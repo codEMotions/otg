@@ -38,11 +38,8 @@ export class SetProfile extends Component {
     });
   }
 
-  
 
-  
-
-  onMakeChangesClick = (id) => {
+  onMakeChangesClick = (id, firstname, lastname, nickname, displayname, favoritesport, goldenstar, silverstar) => {
 
     const newItem = {
       firstname: this.state.firstname,
@@ -50,8 +47,8 @@ export class SetProfile extends Component {
       nickname: this.state.nickname,
       displayname: this.state.displayname,
       favoritesport: this.state.favoritesport,
-      silverstar: this.state.silverstar,
-      goldenstar: this.state.goldenstar,
+      silverstar: silverstar,
+      goldenstar: goldenstar,
     };
 
     //add item via actions
