@@ -153,6 +153,97 @@ table {
   float: left;
   padding: 10px;
 }
+
+.delete-btn-score-board {
+  margin: 0;
+  padding: 0;
+  background-color: #d60a1b;
+  color: white;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  border-radius: 5px;
+  float: left;
+}
+.delete-btn-score-board p{
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-size: 12px;
+  justify-self: center;
+  align-self: center;
+}
+
+.score-board-info {
+  float: left;
+  margin-left: 10px;
+}
+
+.update-score-btn-score-board {
+  margin: 0;
+  padding: 0;
+  background-color: #0cac21;
+  color: white;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  border-radius: 5px;
+  float: right;
+}
+
+.update-btn-score-board {
+  margin: 0;
+  padding: 0;
+  background-color: #3b29df;
+  color: white;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  border-radius: 5px;
+  float: right;
+}
+
+.update-btn-score-board p{
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-size: 12px;
+  justify-self: center;
+  align-self: center;
+}
+
+.end-btn-score-board {
+  border-radius: 5px;
+  background-color: #c59d17;
+  float: right;
+  height: 20px;
+}
+.end-btn-score-board p{
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-size: 12px;
+  justify-self: center;
+  align-self: center;
+}
+
+.score-board-game {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.separator-score-board {
+  clear: both;
+  width: 100%;
+  height: 5px;
+  border-bottom: solid 1px #000000;
+  margin-bottom: 10px; 
+}
+
+.score-board-teams {
+  color: #557eca;
+}
+
 /* Score Board   Score Board   Score Board   Score Board   Score Board   Score Board   Score Board */
 
 /* Friends  Friends  Friends  Friends  Friends  Friends  Friends  Friends  Friends */
@@ -415,7 +506,7 @@ table {
 
 footer {
   clear: both;
-  height: 100px;
+  height: 25px;
   width: 100%;
   background-color: rgb(126, 30, 170);
 }

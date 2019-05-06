@@ -246,7 +246,7 @@ export class NewGame extends Component {
           </Button>
         </div>
 
-       <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Start a New Game</ModalHeader>
 
           <ModalBody>

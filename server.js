@@ -8,6 +8,9 @@ const profile = require('./routes/api/profile');
 const games = require('./routes/api/games');
 const user = require('./routes/api/users');
 const auth = require('./routes/api/auth');
+const league = require('./routes/api/leagues');
+const gamesleague = require('./routes/api/gamesleague');
+const record = require('./routes/api/record');
 
 const app = express();
 
@@ -26,7 +29,9 @@ app.use('/api/items', items);
 app.use('/api/games', games);
 app.use('/api/users', user);
 app.use('/api/auth', auth);
-
+app.use('/api/leagues', league);
+app.use('/api/gamesleague', gamesleague);
+app.use('/api/record', record);
 
 
 if(process.env.NODE_ENV === 'production'){
@@ -36,7 +41,6 @@ if(process.env.NODE_ENV === 'production'){
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
 }
-
 
 const PORT = process.env.PORT || 5000;
 

@@ -4,7 +4,9 @@ import profileReducer from './profileReducer';
 import gameReducer from './gameReducer';
 import errorReducer from './errorReducer';
 import authReducer from './authReducer';
-
+import leagueReducer from './leagueReducer'
+import gameleagueReducer from './gameleagueReducer';
+import recordReducer from './recordReducer';
 
 
 export default combineReducers({
@@ -12,5 +14,8 @@ export default combineReducers({
     profile: profileReducer,
     game: gameReducer,
     error: errorReducer,
-    auth: authReducer
+    auth: authReducer,
+    league: leagueReducer,
+    gamesleague: gameleagueReducer,
+    record: recordReducer
 })

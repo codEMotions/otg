@@ -23,4 +23,19 @@ export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
+export const GET_LEAGUES = 'GET_LEAGUES';
+export const ADD_LEAGUE = 'ADD_LEAGUE';
+export const DELETE_LEAGUE = 'DELETE_LEAGUE';
+export const LEAGUES_LOADING = 'LEAGUES_LOADING';
+
+export const GET_GLS = 'GET_GLS';
+export const ADD_GL = 'ADD_GL';
+export const DELETE_GL = 'DELETE_GL';
+export const GLS_LOADING = 'GLS_LOADING';
+
+export const GET_REC = 'GET_REC';
+export const ADD_REC = 'ADD_REC';
+export const DELETE_REC = 'DELETE_REC';
+export const REC_LOADING = 'REC_LOADING';
+
 
