@@ -184,7 +184,7 @@ export class LeagueBoard extends Component {
                 </td>
                 <td>
                   <button 
-
+                   className="start-btn-league-board" 
                   onClick={this.onStartBtn.bind(this, a, b, leagueName, gameType)}
                   
                   >start</button>
@@ -448,6 +448,7 @@ export class LeagueBoard extends Component {
               </td>
               <td>
                 <button
+                className="start-btn-league-board" 
                 style={{ display: "block" }}
                 onClick={this.onStartBtn.bind(this, a, b, leagueName, gameType)}
 
@@ -547,8 +548,9 @@ export class LeagueBoard extends Component {
             <div key={_id}>
               <hr />
               {leagueName} - {gameType} <button
+                className="delete-btn-league-board"
                 onClick={this.onDeleteClick.bind(this, _id)}
-              >&times;</button>
+              ><p>&times;</p></button>
               <table>
                 <tr>
                   <th>Team</th>

@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { register } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
+import { addProfile } from "../../actions/profileActions"
 
 class RegisterModal extends Component {
   state = {
@@ -75,6 +76,12 @@ class RegisterModal extends Component {
     };
 
     this.props.register(newUser);
+
+    const newProfile = {
+      firstname: name
+    }
+
+    this.props.addProfile(newProfile);
     //close modal
     // this.toggle();
   };
@@ -138,10 +145,11 @@ class RegisterModal extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  error: state.error
+  error: state.error,
+  profile: state.profile
 });
 
 export default connect(
   mapStateToProps,
-  { register, clearErrors }
+  { register, clearErrors, addProfile }
 )(RegisterModal);

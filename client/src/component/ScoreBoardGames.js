@@ -11,7 +11,6 @@ import { addProfile, getProfile, deleteProfile } from "../actions/profileActions
 import { addRecord } from "../actions/recordActions";
 import uuid from "uuid";
 import {
-  Alert,
   Modal,
   ModalHeader,
   ModalBody,
@@ -32,6 +31,7 @@ export class ScoreBoardGames extends Component {
     this.state = {
       modal: false,
       modalS: false,
+      modalNewGame: false,
 
       //add to new game loop
       team1: "",
@@ -69,6 +69,12 @@ export class ScoreBoardGames extends Component {
   toggle = () => {
     this.setState({
       modal: !this.state.modal
+    });
+  };
+
+  toggleNewGame = () => {
+    this.setState({
+      modalNewGame: !this.state.modalNewGame
     });
   };
 
@@ -164,9 +170,10 @@ export class ScoreBoardGames extends Component {
     this.props.deleteGameleague(id);
   };
 
-  onEndGameClick = (id, gameType, team1, team2, score1, score2) => {
+  onEndGameClick = async (id, gameType, team1, team2, score1, score2) => {
     //add star
     this.onAddStar();
+
     //add to game records db
     const newRecord = {
       gameType: gameType,
@@ -178,7 +185,7 @@ export class ScoreBoardGames extends Component {
 
     this.props.addRecord(newRecord);
 
-    this.props.deleteGameleague(id);
+    await this.props.deleteGameleague(id);
   };
 
   onSubmitScore = async e => {
@@ -265,6 +272,22 @@ export class ScoreBoardGames extends Component {
     
   };
 
+  onSubmitToNewGame = () => {
+
+    const newGame = {
+      team1: this.state.team1,
+      team2: this.state.team2,
+      leagueName: this.state.leagueName,
+      gameType: this.state.gameType,
+      score1: 0,
+      score2: 0
+    }
+
+    
+    this.props.addGameleague(newGame);
+
+  }
+
   render() {
     const { gamesleague } = this.props.gamesleague;
 
@@ -272,6 +295,16 @@ export class ScoreBoardGames extends Component {
       <div id="score-board" className="mn">
         <h4>Score Board - Live Games</h4>
 
+        <br/>
+
+        <Button
+            color="primary"
+            style={{ marginBottom: "1rem" }}
+            onClick={this.toggleNewGame}
+          >
+            New Game
+          </Button>
+          <hr/>
         {gamesleague.map(({ team1, team2, gameType, _id, score1, score2 }) => (
           <div className="score-board-game" key={uuid()}>
             <button
@@ -391,6 +424,76 @@ export class ScoreBoardGames extends Component {
 
               <InputGroup>
                 <Button outline>Update Score</Button>
+              </InputGroup>
+            </Form>
+          </ModalBody>
+        </Modal>
+      
+        <Modal isOpen={this.state.modalNewGame} toggle={this.modalNewGame}>
+          <ModalHeader toggle={this.modalNewGame}>Start a New Game</ModalHeader>
+
+          <ModalBody>
+            <select value={this.state.gameType} onChange={this.handleChangeSel}>
+              <option option="choose">choose from list</option>
+              <option option="Basketball">Basketball</option>
+              <option option="Football">Football</option>
+              <option option="Soccer">Soccer</option>
+              <option option="Baseball">Baseball</option>
+              <option option="Tennis">Tennis</option>
+              <option option="Volleyball">Volleyball</option>
+              <option option="Rugby">Rugby</option>
+              <option option="Golf">Golf</option>
+              <option option="Other">Other</option>
+            </select>
+
+            <Form onSubmit={this.onSubmitToNewGame}>
+              <Row form>
+                <Col md={6}>
+                  <FormGroup>
+                    <Label for="team1">Team 1</Label>
+                    <Input
+                      type="text"
+                      name="team1"
+                      id="team1"
+                      placeholder="Team 1 Name"
+                      onChange={this.handleChange}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col md={6}>
+                  <FormGroup>
+                    <Label for="team2">Team 2</Label>
+                    <Input
+                      type="text"
+                      name="team2"
+                      id="team2"
+                      placeholder="Team 2 Name"
+                      onChange={this.handleChange}
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+
+              <FormGroup tag="fieldset" row onChange={this.handleChange}>
+                <legend className="col-form-label col-sm-6">
+                  How Many Players a Side
+                </legend>
+                <Col sm={10}>
+                  
+                  {this.populateRadioBtns()}
+
+                </Col>
+              </FormGroup>
+
+              {this.getNames()}
+
+              <InputGroup>
+                <Button outline>Game Starting Now</Button>
+
+                <Input placeholder="time" />
+                <InputGroupAddon addonType="append">
+                  <Button color="secondary">Schedule</Button>
+                </InputGroupAddon>
               </InputGroup>
             </Form>
           </ModalBody>
