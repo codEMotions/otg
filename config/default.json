@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb://otg:Nicolas2017@ds151876.mlab.com:51876/heroku_55xx8xpf",
+    "jwtSecret": "sl_myJwtSecret"
+ }
