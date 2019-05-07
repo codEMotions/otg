@@ -20,7 +20,8 @@ import {
 
 export class AppNavBar extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
+    temperature: 100
   };
 
   toggle = () => {
@@ -34,6 +35,9 @@ export class AppNavBar extends Component {
   };
 
   render() {
+
+
+
     const { isAuthenticated, user } = this.props.auth;
 
     const authLinks = (
@@ -65,23 +69,21 @@ export class AppNavBar extends Component {
         <Navbar id="navbar" dark expand="sm" className="mb-5">
           <Container>
             <NavbarBrand href="/">
-                <Logo />
+              <Logo />
             </NavbarBrand>
             <NavbarBrand href="/">
-                <LogoWrite />
+              <LogoWrite />
             </NavbarBrand>
-            <NavbarBrand href="/">
-                {/* get from API */}
-                Temp 72°
-            </NavbarBrand>
+
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-
-
+                <NavItem>
+                  <NavLink onClick={this.toggle} href="#">
+                    {this.props.temp} °
+                  </NavLink>
+                </NavItem>
                 {isAuthenticated ? authLinks : guestLink}
-              
-                
               </Nav>
             </Collapse>
           </Container>

@@ -551,3 +551,33 @@ footer {
   width: 100%;
   background-color: rgb(126, 30, 170);
 }
+
+
+@media only screen and (max-width: 600px) {
+
+  #article-one {
+    width: 100%;
+    height: auto;
+    margin-right: 0%;
+    float: left;
+    /* background-color: #7c99ac; */
+    margin-bottom: 10px;
+  }
+  #article-two {
+    width: 100%;
+    height: auto;
+    margin-right: 0%;
+    float: left;
+    /* background-color: #617380; */
+    margin-bottom: 10px;
+  }
+  #article-three {
+    float: left;
+    width: 100%;
+    height: auto;
+    float: left;
+    /* background-color: #0a84d6; */
+    margin-bottom: 10px;
+  }
+
+}

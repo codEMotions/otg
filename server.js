@@ -17,9 +17,10 @@ const app = express();
 
 app.use(express.json());
 
-//const key = process.env.API_KEY
-const db = config.get('mongoURI');
 
+// const db = config.get('mongoURI');
+
+const db = "mongodb://localhost:27017/otg";
 
 //connect
 mongoose.connect(process.env.MONGODB_URI || db, { useNewUrlParser: true, useCreateIndex: true })
